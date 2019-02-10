@@ -36,8 +36,8 @@
 #include "RadioProxy.h"
 
 //TODO: Hardcode your WiFi credentials here (and keep it private)
-const char* ssid = "NETGEAR96";
-const char* password = "phoebe1984";
+const char* ssid = "........";
+const char* password = ".......";
 
 //WebThingAdapter* adapter;
 WebThingAdapter adapter("adapter", WiFi.localIP());
