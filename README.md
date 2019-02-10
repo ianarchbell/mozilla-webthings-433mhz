@@ -16,7 +16,7 @@ Let's see hw to define a 433Mhz device for use with WebThings. Here is a simple 
     ThingProperty control1("Control 1", "433Mhz Light Control 1", BOOLEAN, "BooleanProperty");
     ThingProperty control2("Control 2", "433Mhz Light Control 2", BOOLEAN, "BooleanProperty");
 
-This is how you add the proxies or the devices that map 433Mhz codes to properties and vice versa:
+This is how you add the proxies or the devices that map 433Mhz codes to properties and vice versa. The first code is an on code and the second the off.
 
     RadioProxy proxy5(PROXY_INPUT, &control1, 1135923, 1135932);
     RadioProxy proxy6(PROXY_INPUT, &control2, 1136067, 1136076);
@@ -24,11 +24,11 @@ This is how you add the proxies or the devices that map 433Mhz codes to properti
 These declarations indicate that radio input of these on codes and off codes are to be mapped to control1 
 and control2 property respectively.
 
-Note that is=t is possible to map "flip-flop" type devices that have a single code rather than separate on and off codes:
+Note that it is possible to map "flip-flop" type devices that have a single code rather than separate on and off codes:
 
     RadioProxy proxy1(PROXY_INPUT, &buttonProperty1, 15864961);
 
-RadioProxy flips the state each time it gets this type of code.  
+RadioProxy flips the state each time it gets/sends this type of code.  
 
 Output devices are declared in a similar way but require more information. This is a power outlet with typical WebThings declaration.
 
@@ -44,6 +44,10 @@ So how do you find out what the on/off codes are? Run any of these examples and 
 If the code is detected, it will show on the serial monitor. You can then use the codes in your proxy declarations. 
 So it's quite straightforward to declare the RadioProxies. 
 
+This line declares proxy to by an output proxy (controlling a device as opposed to an input switch or sensor), 
+on code is 5264691, off code is 5264700, bit length is 24, pulse length is 184 microseconds, protocol is 1 and number of repetitions is 10.
+An input proxy does not require all the protocol information as the protocol is decoded automatically.
+    
     RadioProxy proxy16(PROXY_OUTPUT, &power1, 5264691, 5264700, 24, 184, 1, 10);
 
 To use the 433Mhz radio, you need to turn it on in your setup()

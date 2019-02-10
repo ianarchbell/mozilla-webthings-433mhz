@@ -5,11 +5,10 @@
   or device using the RadioProxy class. Then enable the radio. The 433Mhz input and mapping of 
   Mozilla WebThing properties to device state is performed in the loop as shown below. 
   That's all that's required.
-
-  // map a received code to relevant property
-  RadioProxy::mapRadioStatus();
+ 
   // map all properties to radio status 
-  RadioProxy::mapPropertyStatus();
+  // map a received code to relevant property
+  RadioProxy::update();
 
   RadioProxy - Arduino libary for mapping 433Mhz devices and Mozilla
   WebThings. It uses RCbuttonPtoperty for communication through the

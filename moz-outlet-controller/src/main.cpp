@@ -6,10 +6,9 @@
   Mozilla WebThing properties to device state is performed in the loop as shown below. 
   That's all that's required.
 
-  // map a received code to relevant property
-  RadioProxy::mapRadioStatus();
   // map all properties to radio status 
-  RadioProxy::mapPropertyStatus();
+  // map a received code to relevant property
+  RadioProxy::update();
 
   RadioProxy - Arduino libary for mapping 433Mhz devices and Mozilla
   WebThings. It uses RCSwitch for communication through the
@@ -42,8 +41,8 @@
 #include "RadioProxy.h"
 
 //TODO: Hardcode your WiFi credentials here (and keep it private)
-const char* ssid = "NETGEAR96";
-const char* password = "phoebe1984";
+const char* ssid = "........";
+const char* password = ".........";
 
 WebThingAdapter* adapter;
 
