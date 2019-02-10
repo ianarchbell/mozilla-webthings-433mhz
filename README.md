@@ -24,6 +24,12 @@ This is how you add the proxies or the devices that map 433Mhz codes to properti
 These declarations indicate that radio input of these on codes and off codes are to be mapped to control1 
 and control2 property respectively.
 
+Note that is=t is possible to map "flip-flop" type devices that have a single code rather than separate on and off codes:
+
+    RadioProxy proxy1(PROXY_INPUT, &buttonProperty1, 15864961);
+
+RadioProxy flips the state each time it gets this type of code.  
+
 Output devices are declared in a similar way but require more information. This is a power outlet with typical WebThings declaration.
 
     ThingDevice outlet1("Outlet 1", "IoT-Bus 433Mhz Outlet 1", sensorTypes);
