@@ -114,18 +114,16 @@ void setup() {
   outlet3.addProperty(&power3);
   adapter->addDevice(&outlet3);
  
-  // RadioProxy::enableRadio(4, true); // data pin, verbose 
-  RadioProxy::enableRadio(4, true);
+  // Start the radio
+  RadioProxy::begin(true); // verbose
   // start the adapter
   adapter->begin();   
 }
 
 void loop() {
   // map a received code to relevant property
-  RadioProxy::mapRadioStatus();
   // map all properties to radio status 
-  RadioProxy::mapPropertyStatus();
-}
+  RadioProxy::update();}
 
 
 

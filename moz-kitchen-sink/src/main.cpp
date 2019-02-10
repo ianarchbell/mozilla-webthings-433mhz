@@ -45,7 +45,8 @@
 const char* ssid = "NETGEAR96";
 const char* password = "phoebe1984";
 
-WebThingAdapter* adapter;
+//WebThingAdapter* adapter;
+WebThingAdapter adapter("adapter", WiFi.localIP());
 
 // round red button
 const char* sensorTypes[] = {"binarySensor", nullptr};
@@ -161,61 +162,60 @@ void setup() {
   Serial.println(WiFi.localIP());
   
   // Initialize MOZ IoT adapter
-  adapter = new WebThingAdapter("adapter", WiFi.localIP());
+  //adapter = new WebThingAdapter("adapter", WiFi.localIP());
 
   // Initialize MOZ IoT buttons
   redButton.addProperty(&buttonProperty1);
-  adapter->addDevice(&redButton);
+  adapter.addDevice(&redButton);
   
   keyButton.addProperty(&buttonProperty2);
-  adapter->addDevice(&keyButton);
+  adapter.addDevice(&keyButton);
   
   keyButton2.addProperty(&buttonProperty3);
   keyButton2.addProperty(&buttonProperty4);
-  adapter->addDevice(&keyButton2);
+  adapter.addDevice(&keyButton2);
   
   // Initialize MOZ IoT controller
   lightController.addProperty(&control1);
   lightController.addProperty(&control2);
   lightController.addProperty(&control3);
   lightController.addProperty(&control4);
-  adapter->addDevice(&lightController);
+  adapter.addDevice(&lightController);
 
   // Initialize MOZ IoT Lights
   Light1.addProperty(&light1);
-  adapter->addDevice(&Light1);
+  adapter.addDevice(&Light1);
   Light2.addProperty(&light2);
-  adapter->addDevice(&Light2);
+  adapter.addDevice(&Light2);
   Light3.addProperty(&light3);
-  adapter->addDevice(&Light3);
+  adapter.addDevice(&Light3);
   Light4.addProperty(&light4);
-  adapter->addDevice(&Light4);
+  adapter.addDevice(&Light4);
 
   // Initialize MOZ IoT controller
   outletController.addProperty(&switch1);
   outletController.addProperty(&switch2);
   outletController.addProperty(&switch3);
-  adapter->addDevice(&outletController);
+  adapter.addDevice(&outletController);
 
   // Initialize MOZ IoT outlets
   outlet1.addProperty(&power1);
-  adapter->addDevice(&outlet1);
+  adapter.addDevice(&outlet1);
   outlet2.addProperty(&power2);
-  adapter->addDevice(&outlet2);
+  adapter.addDevice(&outlet2);
   outlet3.addProperty(&power3);
-  adapter->addDevice(&outlet3);
+  adapter.addDevice(&outlet3);
  
-  // RadioProxy::enableRadio(4, true); // data pin, verbose 
-  RadioProxy::enableRadio(4, true);
+  // start the radio
+  RadioProxy::begin(true); // verbose
   // start the adapter
-  adapter->begin();   
+  adapter.begin();   
 }
 
 void loop() {
   // map a received code to relevant property
-  RadioProxy::mapRadioStatus();
   // map all properties to radio status 
-  RadioProxy::mapPropertyStatus();
+  RadioProxy::update();
 }
 
 
