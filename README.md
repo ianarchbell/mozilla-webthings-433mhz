@@ -10,7 +10,7 @@ and receipt of these codes as well as decoding the protocol used.
 
 RadioProxy is a new class added to RcSwitch which statically maps 433Mhz codes to Mozilla WebThings properties both for sending and receiving. 
 
-Let's see hw to define a 433Mhz device for use with WebThings. Here is a simple WebThing controller with two properties:
+Let's see how to define a 433Mhz device for use with WebThings. Here is a simple WebThing controller with two properties:
 
     ThingDevice lightController("LightController", "IoT-Bus 433Mhz Light Controller", sensorTypes);
     ThingProperty control1("Control 1", "433Mhz Light Control 1", BOOLEAN, "BooleanProperty");
@@ -36,19 +36,15 @@ Output devices are declared in a similar way but require more information. This 
     ThingProperty power1("Power", "433Mhz Outlet 1", BOOLEAN, "BooleanProperty");
 
 Here is the proxy for that WebThing. PROXY_OUTPUT indicates it is an output device, then there's the reference to the WebThing being mapped and the on and off codes.
-After that comes the bit length, typically 24, the pulse length which varies a lot, then the protocol number. This is the protocol number that RCSwitch uses.
-You can find the protocol table in protocol.h which is part of RCSwitch. Most devices are protocol 1. The last item is the number of repetitions that should be used.
+After that comes the bit length, typically 24, the pulse length in microseconds which varies a lot, then the protocol number. This is the protocol number that RCSwitch uses. You can find the protocol table in protocol.h which is part of RCSwitch. Most devices are protocol 1. The last item is the number of repetitions that should be used.
 Ten is normally fine. 
+
+    RadioProxy proxy16(PROXY_OUTPUT, &power1, 5264691, 5264700, 24, 184, 1, 10);
+
 
 So how do you find out what the on/off codes are? Run any of these examples and press the control button.
 If the code is detected, it will show on the serial monitor. You can then use the codes in your proxy declarations. 
-So it's quite straightforward to declare the RadioProxies. 
-
-This line declares proxy to by an output proxy (controlling a device as opposed to an input switch or sensor), 
-on code is 5264691, off code is 5264700, bit length is 24, pulse length is 184 microseconds, protocol is 1 and number of repetitions is 10.
-An input proxy does not require all the protocol information as the protocol is decoded automatically.
-    
-    RadioProxy proxy16(PROXY_OUTPUT, &power1, 5264691, 5264700, 24, 184, 1, 10);
+So it's quite straightforward to declare the RadioProxies.     
 
 To use the 433Mhz radio, you need to turn it on in your setup()
 
